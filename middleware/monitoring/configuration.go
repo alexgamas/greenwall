@@ -23,10 +23,10 @@ type Group struct {
 
 // Node stores monitoring definition of a single node.
 type Node struct {
-	Name            string `yaml:"name"`
-	Endpoint        string `yaml:"endpoint"`
-	ExpectedPattern string `yaml:"expectedPattern"` // Deprecated field (please use one in HTTPCheckConfig)
-
-	Type       string            `yaml:"type"`
-	Parameters map[string]string `yaml:"parameters"`
+	Name            string            `yaml:"name"`
+	Endpoint        string            `yaml:"endpoint"`
+	ExpectedPattern string            `yaml:"expectedPattern"` // Deprecated field (please use one in HTTPCheckConfig)
+	Type            string            `yaml:"type"`
+	Parameters      map[string]string `yaml:"parameters"`
+	Headers         map[string]string `yaml:"headers"`
 }

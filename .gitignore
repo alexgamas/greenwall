@@ -32,3 +32,6 @@ TODO
 
 # Dist
 dist.zip
+
+**/.vscode
+**/__debug*

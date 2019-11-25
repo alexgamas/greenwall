@@ -27,6 +27,7 @@ type HTTPCheck struct {
 	searchedPattern   []byte
 	basicAuthUsername string
 	basicAuthPassword string
+	headers           map[string]string
 }
 
 // Initialize method initializes the check instance.
@@ -43,6 +44,7 @@ func (h *HTTPCheck) Initialize(monitoringConfiguration *monitoring.Configuration
 
 	h.basicAuthUsername = h.nodeConfig.Parameters[basicAuthUsernameParameter]
 	h.basicAuthPassword = h.nodeConfig.Parameters[basicAuthPasswordParameter]
+	h.headers = h.nodeConfig.Headers
 }
 
 // Run method executes the check. This is invoked periodically.
@@ -61,6 +63,12 @@ func (h *HTTPCheck) Run() CheckResult {
 
 	if h.withBasicAuth() {
 		req.SetBasicAuth(h.basicAuthUsername, h.basicAuthPassword)
+	}
+
+	if h.headers != nil {
+		for key, value := range h.headers {
+			req.Header.Add(key, value)
+		}
 	}
 
 	response, err := h.client.Do(req)
